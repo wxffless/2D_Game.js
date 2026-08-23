@@ -49,11 +49,16 @@ class Player extends GameObject
 
     collect(collectable)
     {
-        //AudioFiles.collect.volume *= 0.1;
         AudioFiles.collect.play();
 
         this.score += collectable.value;
         console.log("Score: " + this.score);
+    }
+
+    enemyCollision(obstacle)
+    {
+        this.lives -= obstacle.damage;
+        console.log("Lives: " + this.lives);
     }
 
     update(deltaTime)
@@ -97,7 +102,7 @@ class Player extends GameObject
         {
              if(physics.isColliding(coll.getComponent(Physics)))
              {
-                this.lives -= coll.damage;
+                this.enemyCollision(coll);
                 this.game.removeGameObject(coll);
              }
         }
