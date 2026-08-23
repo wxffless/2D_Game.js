@@ -22,7 +22,7 @@ class Level extends Game
             this.camera.y = 0;
         };
 
-        this.addGameObject(new Background(0,0, 10000,this.canvas.height, Images.background));
+        this.addGameObject(new Background(0,0, this.canvas.width, this.canvas.height, Images.background));
 
         const playerWidth = 90;
         const playerHeight = 70;
@@ -175,7 +175,7 @@ class Level extends Game
             -h,
             w,
             h,
-            "Red",
+            Images.enemy,
             fallingSpeed
         );
 
