@@ -5,6 +5,7 @@ import Collectible from "./collectible.js"
 import Background from "./background.js"
 import Obstacle from "./obstacles.js"
 import Player from "./player.js"
+import PlayerUI from "./playerUI.js"
 
 class Level extends Game
 {
@@ -25,6 +26,8 @@ class Level extends Game
 
         const player = new Player((this.canvas.width - playerWidth) / 2, this.canvas.height - playerHeight, Images.player);
         this.addGameObject(player);
+
+        this.addGameObject(new PlayerUI(10,10));
 
         this.elapsedTime = 0;
         this.spawnTimer = 0;
