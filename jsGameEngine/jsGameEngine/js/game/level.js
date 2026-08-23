@@ -3,6 +3,7 @@ import {Images} from "../engine/resources.js"
 
 import Collectible from "./collectible.js"
 import Background from "./background.js"
+import Obstacle from "./obstacles.js"
 
 class Level extends Game
 {
@@ -27,6 +28,7 @@ class Level extends Game
         this.elapsedTime += this.deltaTime;
 
         this.updateSpawner();
+        
         super.update();
     }
 
@@ -36,12 +38,27 @@ class Level extends Game
 
         if (this.spawnTimer <= 0) 
         {
-            this.spawnCollectible();
+            this.spawnFallingObject();
             this.spawnTimer = Math.max
             (
                 0.35,
                 0.9 - this.elapsedTime * 0.01
             );
+        }
+    }
+
+    spawnFallingObject() 
+    {
+        const spawnCollectible = Math.random() < 0.65;
+
+        if (spawnCollectible) 
+        {
+            this.spawnCollectible();
+        } 
+
+        else 
+        {
+            this.spawnObstacle();
         }
     }
 
@@ -67,6 +84,27 @@ class Level extends Game
         this.addGameObject(collectible);
     }
     
+    spawnObstacle() 
+    {
+        const w = 42;
+        const h = 42;
+        const fallingSpeed = 200;
+
+        const x = Math.random() * (this.canvas.width - w);
+
+        const obstacle = new Obstacle
+        (
+            x,
+            -h,
+            w,
+            h,
+            "Red",
+            fallingSpeed
+        );
+
+        this.addGameObject(obstacle);
+    }
+
 }
 
 export default Level
