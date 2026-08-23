@@ -1,5 +1,5 @@
 import Game from "../engine/game.js"
-import {Images} from "../engine/resources.js"
+import {Images, AudioFiles} from "../engine/resources.js"
 
 import Collectible from "./collectible.js"
 import Background from "./background.js"
@@ -28,26 +28,6 @@ class Level extends Game
 
         this.elapsedTime = 0;
         this.spawnTimer = 0;
-    }
-
-    PlayerBounds() 
-    {
-        const canvasWidth = this.game.canvas.width;
-        const playerWidth = this.renderer.width;
-
-        // Stop the player leaving the left side.
-        if (this.x < 0) 
-        {
-            this.x = 0;
-            this.physics.velocity.x = 0;
-        }
-
-        // Stop the player leaving the right side.
-        if (this.x + playerWidth > canvasWidth) 
-        {
-            this.x = canvasWidth - playerWidth;
-            this.physics.velocity.x = 0;
-        }
     }
     
     update()

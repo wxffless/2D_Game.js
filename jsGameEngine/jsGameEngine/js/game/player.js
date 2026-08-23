@@ -2,6 +2,7 @@ import GameObject from "../engine/gameobject.js"
 import Physics from "../engine/physics.js"
 import Input from "../engine/input.js"
 import Renderer from "../engine/renderer.js"
+import {AudioFiles} from "../engine/resources.js";
 
 import Collectible from "./collectible.js"
 import Obstacle from "./obstacles.js"
@@ -44,6 +45,15 @@ class Player extends GameObject
             this.x = canvasWidth - playerWidth;
             physics.velocity.x = 0;
         }
+    }
+
+    collect(collectable)
+    {
+        //AudioFiles.collect.volume *= 0.1;
+        AudioFiles.collect.play();
+
+        this.score += collectable.value;
+        console.log("Score: " + this.score);
     }
 
     update(deltaTime)

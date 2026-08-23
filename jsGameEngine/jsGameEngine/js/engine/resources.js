@@ -2,13 +2,13 @@
 const Images = {
   player: new Image(), // The Image instance for the player.
   enemy: new Image(),
-  collectible: new Image()// The Image instance for the enemy.
+  collectible: new Image(),// The Image instance for the enemy.
+  //background: new Image()
 };
 
 // Create an AudioFiles object to hold the file paths of the audio resources.
 const AudioFiles = {
-  jump: './resources/audio/jump.mp3', // The file path of the jump sound.
-  collect: './resources/audio/collect.mp3', // The file path of the collect sound.
+  collect: new Audio('./resources/Audio/pick-up.mp3'), // The file path of the collect sound.
   // Add more audio file paths as needed
 };
 
