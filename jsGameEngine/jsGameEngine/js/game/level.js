@@ -4,23 +4,30 @@ import {Images} from "../engine/resources.js"
 import Collectible from "./collectible.js"
 import Background from "./background.js"
 import Obstacle from "./obstacles.js"
+import Player from "./player.js"
 
 class Level extends Game
 {
     constructor(canvasId)
     {
         super(canvasId);
-
-        this.elapsedTime = 0;
-        this.spawnTimer = 0;
         
-      this.camera.update = () => 
+        this.camera.update = () => 
         {
             this.camera.x = 0;
             this.camera.y = 0;
         };
 
-        this.addGameObject(new Background(0,0, 10000,this.canvas.height, Images.backgroud));
+        this.addGameObject(new Background(0,0, 10000,this.canvas.height, Images.background));
+
+        const playerWidth = 90;
+        const playerHeight = 70;
+
+        const player = new Player((this.canvas.width - playerWidth) / 2, this.canvas.height - playerHeight, Images.player);
+        this.addGameObject(player);
+
+        this.elapsedTime = 0;
+        this.spawnTimer = 0;
     }
     
     update()
