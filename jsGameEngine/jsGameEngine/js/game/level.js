@@ -2,6 +2,7 @@ import Game from "../engine/game.js"
 import {Images} from "../engine/resources.js"
 
 import Collectible from "./collectible.js"
+import Background from "./background.js"
 
 class Level extends Game
 {
@@ -17,6 +18,8 @@ class Level extends Game
             this.camera.x = 0;
             this.camera.y = 0;
         };
+
+        this.addGameObject(new Background(0,0, 10000,this.canvas.height, Images.backgroud));
     }
     
     update()
