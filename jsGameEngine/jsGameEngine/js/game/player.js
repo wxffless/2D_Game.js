@@ -25,6 +25,26 @@ class Player extends GameObject
         this.lives = 3;
     }
 
+    keepOnScreen() 
+    {
+        const canvasWidth = this.game.canvas.width;
+        const playerWidth = 90;
+        const physics = this.getComponent(Physics);
+
+        // Stop the player leaving the left side.
+        if (this.x < 0) 
+        {
+            this.x = 0;
+            physics.velocity.x = 0;
+        }
+
+        // Stop the player leaving the right side.
+        if(this.x + playerWidth > canvasWidth) 
+        {
+            this.x = canvasWidth - playerWidth;
+            physics.velocity.x = 0;
+        }
+    }
 
     update(deltaTime)
     {
@@ -73,6 +93,7 @@ class Player extends GameObject
         }
         
         super.update(deltaTime);
+        this.keepOnScreen();
     }
     }
 
