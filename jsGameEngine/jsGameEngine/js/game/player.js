@@ -61,6 +61,23 @@ class Player extends GameObject
         console.log("Lives: " + this.lives);
     }
 
+    resetPlayer() 
+    {
+        this.lives = 3;
+        this.score = 0;
+        this.speed = 300;
+
+        const physics = this.getComponent(Physics);
+        physics.velocity.y = 0;
+        physics.velocity.x = 0;
+
+        this.x = (this.game.canvas.width -this.Renderer.width) / 2;
+
+        this.y =this.game.canvas.height - this.Renderer.height;
+
+        console.log("Game reset");
+    }
+
     update(deltaTime)
     {
         const physics = this.getComponent(Physics);
@@ -104,6 +121,11 @@ class Player extends GameObject
              {
                 this.enemyCollision(coll);
                 this.game.removeGameObject(coll);
+
+                if(this.lives<=0)
+                {
+                    this.game.endGame();
+                }
              }
         }
         

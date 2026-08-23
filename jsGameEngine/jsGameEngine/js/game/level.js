@@ -6,6 +6,7 @@ import Background from "./background.js"
 import Obstacle from "./obstacles.js"
 import Player from "./player.js"
 import PlayerUI from "./playerUI.js"
+import gamestateUI from "./gamestateUI.js"
 
 class Level extends Game
 {
@@ -13,6 +14,8 @@ class Level extends Game
     {
         super(canvasId);
         
+        this.state = "start";
+
         this.camera.update = () => 
         {
             this.camera.x = 0;
@@ -24,17 +27,81 @@ class Level extends Game
         const playerWidth = 90;
         const playerHeight = 70;
 
-        const player = new Player((this.canvas.width - playerWidth) / 2, this.canvas.height - playerHeight, Images.player);
-        this.addGameObject(player);
+        this.player = new Player((this.canvas.width - playerWidth) / 2, this.canvas.height - playerHeight, Images.player);
+        this.addGameObject(this.player);
 
         this.addGameObject(new PlayerUI(10,10));
 
+        this.gamestateUI = new gamestateUI(this.canvas.width / 2 - 200, this.canvas.height / 2);
+        this.addGameObject(this.gamestateUI);
+        this.gamestateUI.showStartScreen();
+
         this.elapsedTime = 0;
         this.spawnTimer = 0;
+
+        this.addkeyboardevents();
+    }
+
+    addkeyboardevents()
+    {
+        document.addEventListener("keydown",(event) => 
+        {
+            //starting
+            if(event.code === "Space" && this.state === "start")
+            {
+                this.beginGame();
+            }
+
+            //restarting at gameover
+            if(event.code === "Space" && this.state === "GameOver")
+            {
+                this.resetLevel();
+                this.beginGame();
+            }
+
+            //pausing
+            if(event.code === "Escape" && this.state === "playing")
+            {
+                this.pauseGame();
+            }
+
+            else if(event.code === "Escape" && this.state === "paused")
+            {
+                this.continueGame();
+            }
+        })
+    }
+
+    beginGame()
+    {
+        this.state = "playing";
+        this.gamestateUI.hide();
+    }
+
+    pauseGame()
+    {
+        this.state = "paused";
+        this.gamestateUI.showPauseScreen();
+    }
+
+    continueGame()
+    {
+        this.state = "playing";
+        this.gamestateUI.hide();
+    }
+
+    endGame()
+    {
+        this.state = "GameOver"
+        this.gamestateUI.showGameOverScreen();
+        console.log("game over");
     }
     
     update()
     {
+        if(this.state != "playing")
+            return;
+        
         this.elapsedTime += this.deltaTime;
 
         this.updateSpawner();
@@ -113,6 +180,21 @@ class Level extends Game
         );
 
         this.addGameObject(obstacle);
+    }
+
+    resetLevel()
+    {
+        const fallingObjects = this.gameObjects.filter((object) => object instanceof Collectible || object instanceof Obstacle);
+
+        for (const object of fallingObjects) 
+            {
+                this.removeGameObject(object);
+            }
+
+        this.elapsedTime = 0;
+        this.spawnTimer = 0;
+
+        this.player.resetPlayer();
     }
 
 }

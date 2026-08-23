@@ -13,8 +13,7 @@ class PlayerUI extends GameObject
     
     update(deltaTime)
     {
-        let player = this.game.gameObjects.find(
-                (obj)=>obj instanceof Player);
+        let player = this.game.gameObjects.find((obj)=>obj instanceof Player);
         
         this.uiComp.setText("Lives:"+player.lives +"    Score:" +player.score);
         super.update(deltaTime);
