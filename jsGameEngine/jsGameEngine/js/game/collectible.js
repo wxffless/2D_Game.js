@@ -18,16 +18,17 @@ class Collectible extends GameObject {
 
         this.HDirection = -1;
         this.Speed = 50;
+        this.elapsedTime = 0;
     }
 
     update(deltaTime)
     {
-        if(this.elapsedTime > 1)
+        if(this.elapsedTime >= 0.3)
         {
             this.HDirection *=-1;
             this.elapsedTime = 0;
         }
-        this.y += this.HDirection * this.Speed * deltaTime;
+        this.x += this.HDirection * this.Speed * deltaTime;
         
         this.elapsedTime += deltaTime;
         super.update(deltaTime);
