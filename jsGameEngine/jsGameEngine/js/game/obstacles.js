@@ -6,7 +6,7 @@ class Obstacle extends GameObject {
     constructor(x, y, w, h, img, fallingSpeed) 
     {
         super(x, y);
-        this.renderer = new Renderer(w, h, img);
+        this.renderer = new Renderer("Red", w, h, img);
         this.addComponent(this.renderer);
 
         this.addComponent(new Physics(

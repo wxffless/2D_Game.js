@@ -9,6 +9,7 @@ const Images = {
 // Create an AudioFiles object to hold the file paths of the audio resources.
 const AudioFiles = {
   collect: new Audio('./resources/Audio/pick-up.mp3'), // The file path of the collect sound.
+  explosion: new Audio('./resources/Audio/Explosion 1.wav')
   // Add more audio file paths as needed
 };
 

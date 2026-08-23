@@ -57,6 +57,8 @@ class Player extends GameObject
 
     enemyCollision(obstacle)
     {
+        AudioFiles.explosion.play();
+
         this.lives -= obstacle.damage;
         console.log("Lives: " + this.lives);
     }
