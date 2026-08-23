@@ -38,6 +38,7 @@ class Level extends Game
 
         this.elapsedTime = 0;
         this.spawnTimer = 0;
+        this.difficultylevel = 1;
 
         this.addkeyboardevents();
     }
@@ -105,6 +106,7 @@ class Level extends Game
         this.elapsedTime += this.deltaTime;
 
         this.updateSpawner();
+        this.updateDifficulty();
         
         super.update();
     }
@@ -126,7 +128,7 @@ class Level extends Game
 
     spawnFallingObject() 
     {
-        const spawnCollectible = Math.random() < 0.65;
+        const spawnCollectible = Math.random() < 0.65 - (this.difficultylevel-1)*.10;
 
         if (spawnCollectible) 
         {
@@ -182,6 +184,11 @@ class Level extends Game
         this.addGameObject(obstacle);
     }
 
+    updateDifficulty() 
+    {
+        this.difficultylevel = Math.min(5, Math.floor(this.elapsedTime / 15) + 1);
+    }
+
     resetLevel()
     {
         const fallingObjects = this.gameObjects.filter((object) => object instanceof Collectible || object instanceof Obstacle);
@@ -193,6 +200,7 @@ class Level extends Game
 
         this.elapsedTime = 0;
         this.spawnTimer = 0;
+        this.difficultylevel = 1;
 
         this.player.resetPlayer();
     }

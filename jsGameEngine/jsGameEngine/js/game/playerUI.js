@@ -2,6 +2,7 @@ import GameObject from "../engine/gameobject.js";
 import UI from "../engine/ui.js";
 
 import Player from "./player.js";
+
 class PlayerUI extends GameObject
 {
     constructor(x, y)
@@ -15,7 +16,7 @@ class PlayerUI extends GameObject
     {
         let player = this.game.gameObjects.find((obj)=>obj instanceof Player);
         
-        this.uiComp.setText("Lives:"+player.lives +"    Score:" +player.score);
+        this.uiComp.setText("Lives:"+player.lives +"    Score:" +player.score+"    Difficulty: " +this.game.difficultylevel);
         super.update(deltaTime);
     }
 }
